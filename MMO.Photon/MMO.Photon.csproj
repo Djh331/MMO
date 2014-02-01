@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PhotonApplication.cs" />
-    <Compile Include="PhotonEvent.cs" />
-    <Compile Include="PhotonRequest.cs" />
-    <Compile Include="PhotonResponse.cs" />
-    <Compile Include="PhotonServerHandler.cs" />
-    <Compile Include="PhotonServerPeer.cs" />
+    <Compile Include="Server\DefaultEventHandler.cs" />
+    <Compile Include="Server\DefaultRequestHandler.cs" />
+    <Compile Include="Server\DefaultResponseHandler.cs" />
+    <Compile Include="Application\PhotonApplication.cs" />
+    <Compile Include="Application\PhotonEvent.cs" />
+    <Compile Include="Application\PhotonRequest.cs" />
+    <Compile Include="Application\PhotonResponse.cs" />
+    <Compile Include="Server\PhotonServerHandler.cs" />
+    <Compile Include="Server\PhotonServerPeer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
       <Project>{41f803a2-eef3-4fb6-91d0-4bed3467b7c2}</Project>
       <Name>MMO.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MMO.Framework;
+using MMO.Photon.Application;
 
-namespace MMO.Photon
+namespace MMO.Photon.Server
 {
     public abstract class PhotonServerHandler : IHandler<PhotonServerPeer>
     {

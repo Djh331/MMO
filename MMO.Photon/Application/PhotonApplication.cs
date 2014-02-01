@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MMO.Photon
+namespace MMO.Photon.Application
 {
-    class PhotonServerPeer
+    public abstract class PhotonApplication
     {
+
     }
 }

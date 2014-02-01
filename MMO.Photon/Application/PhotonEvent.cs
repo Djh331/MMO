@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MMO.Framework;
 
-namespace MMO.Photon
+namespace MMO.Photon.Application
 {
     public class PhotonEvent : IMessage
     {
@@ -26,7 +26,7 @@ namespace MMO.Photon
 
         public MessageType Type
         {
-            get { return MessageType.Response; }
+            get { return MessageType.Async; }
         }
 
         public int? SubCode

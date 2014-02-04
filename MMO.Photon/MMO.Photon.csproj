@@ -30,6 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGames.Logging.Log4Net">
+      <HintPath>..\..\..\..\..\Google Drive\Awakened Studio\Photon Server SDK\lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExitGamesLibs">
+      <HintPath>..\..\..\..\..\Google Drive\Awakened Studio\Photon Server SDK\lib\ExitGamesLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\Google Drive\Awakened Studio\Photon Server SDK\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon.SocketServer">
+      <HintPath>..\..\..\..\..\Google Drive\Awakened Studio\Photon Server SDK\lib\Photon.SocketServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonHostRuntimeInterfaces">
+      <HintPath>..\..\..\..\..\Google Drive\Awakened Studio\Photon Server SDK\lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\PhotonConnectionCollection.cs" />
+    <Compile Include="Application\PhotonPeerFactory.cs" />
+    <Compile Include="Client\PhotonClientHandler.cs" />
+    <Compile Include="Client\PhotonClientHandlerList.cs" />
+    <Compile Include="Client\PhotonClientPeer.cs" />
     <Compile Include="Server\DefaultEventHandler.cs" />
     <Compile Include="Server\DefaultRequestHandler.cs" />
     <Compile Include="Server\DefaultResponseHandler.cs" />
@@ -47,6 +71,7 @@
     <Compile Include="Application\PhotonRequest.cs" />
     <Compile Include="Application\PhotonResponse.cs" />
     <Compile Include="Server\PhotonServerHandler.cs" />
+    <Compile Include="Server\PhotonServerHandlerList.cs" />
     <Compile Include="Server\PhotonServerPeer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,7 +82,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

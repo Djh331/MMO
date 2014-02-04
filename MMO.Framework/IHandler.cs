@@ -10,6 +10,6 @@ namespace MMO.Framework
         MessageType Type { get; }
         byte Code { get; }
         int? SubCode { get; }
-        bool HanderMessage(IMessage message, T peer);
+        bool HandleMessage(IMessage message, T peer);
     }
 }

@@ -6,9 +6,9 @@ using MMO.Framework;
 using MMO.Photon.Application;
 using ExitGames.Logging;
 
-namespace MMO.Photon.Server
+namespace MMO.Photon.Client
 {
-    public abstract class PhotonServerHandler : IHandler<PhotonServerPeer>
+    public abstract class PhotonClientHandler : IHandler<PhotonClientPeer>
     {
         public abstract MessageType Type { get; }
         public abstract byte Code { get; }
@@ -16,17 +16,17 @@ namespace MMO.Photon.Server
         protected PhotonApplication Server;
         protected ILogger Log = LogManager.GetCurrentClassLogger();
 
-        public PhotonServerHandler(PhotonApplication application)
+        public PhotonClientHandler(PhotonApplication application)
         {
             Server = application;
         }
 
-        public bool HandleMessage(IMessage message, PhotonServerPeer serverPeer)
+        public bool HandleMessage(IMessage message, PhotonClientPeer peer)
         {
-            OnHandleMessage(message, serverPeer);
+            OnHandleMessage(message, peer);
             return true;
         }
 
-        protected abstract bool OnHandleMessage(IMessage message, PhotonServerPeer serverPeer);
+        protected abstract bool OnHandleMessage(IMessage message, PhotonClientPeer peer);
     }
 }

@@ -7,8 +7,8 @@ namespace MMO.Framework
 {
     public interface IMessage
     {
-        MessageType ype { get; }
-        byte code { get; }
+        MessageType Type { get; }
+        byte Code { get; }
         int? SubCode { get; }
         Dictionary<byte, object> Parameters { get; }
     }

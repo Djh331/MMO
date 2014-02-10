@@ -48,7 +48,7 @@ namespace MMO.Photon.Server
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
-            Server.ConnectionCollection.OnDisconnect(this);
+            Server.ConnectionCollection<PhotonConnectionCollection>().OnDisconnect(this);
         }
     }
 }

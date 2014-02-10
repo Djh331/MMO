@@ -37,7 +37,7 @@ namespace MMO.Photon.Client
             {
                 _clientData.Add(data.GetType(), data);
             }
-            _server.ConnectionCollection.Clients.Add(_peerID, this);
+            _server.ConnectionCollection<PhotonConnectionCollection>().Clients.Add(_peerID, this);
         }
 
         protected override void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters)
@@ -47,7 +47,7 @@ namespace MMO.Photon.Client
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
-            _server.ConnectionCollection.OnClientDisconnect(this);
+            _server.ConnectionCollection<PhotonConnectionCollection>().OnClientDisconnect(this);
             Log.DebugFormat("Client {0} disconnected", _peerID);
         }
 

@@ -19,7 +19,7 @@ namespace MMO.Photon.Server
         private readonly Dictionary<int, PhotonServerHandler> _responseHandlerList;
         private readonly Dictionary<int, PhotonServerHandler> _eventHandlerList;
 
-        public PhotonServerHandlerList(IEnumerable<IHandler<PhotonServerHandler>> handlers, DefaultRequestHandler defaultRequestHandler, DefaultResponseHandler defaultResponseHandler, DefaultEventHandler defaultEventHandler)
+        public PhotonServerHandlerList(IEnumerable<PhotonServerHandler> handlers, DefaultRequestHandler defaultRequestHandler, DefaultResponseHandler defaultResponseHandler, DefaultEventHandler defaultEventHandler)
         {
             _defaultRequestHander = defaultRequestHandler;
             _defaultResponseHandler = defaultResponseHandler;

@@ -20,7 +20,7 @@ namespace MMO.Photon.Client
             {
                 if (!RegisterHandler(h))
                 {
-                    Log.WarnFormat("Attempted to register handler {0} for type {1}:{2}", h.GetType().Name, h.Type, h.Code);
+                    Log.WarnFormat("Failed to register handler {0} for type {1}:{2}", h.GetType().Name, h.Type, h.Code);
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace MMO.Photon.Client
         /// Adds a handler to our list
         /// </summary>
         /// <param name="handler">Handler to add.</param>
-        /// <returns>If the handler is added to our list, returns <b>true</b>.</returns>
+        /// <returns>If the handler is added to our list, or already exists in the list, returns <b>true</b>.</returns>
         public bool RegisterHandler(PhotonClientHandler handler)
         {
             var registered = false;
@@ -41,7 +41,7 @@ namespace MMO.Photon.Client
                     _requestHandlerList.Add(handler.SubCode.Value, handler);
                     registered = true;
                 }
-                else if (!_requestHandlerList.ContainsKey(handler.Code))
+                else if (!_requestHandlerList.ContainsKey(handler.Code)) //! here???
                 {
                     _requestHandlerList.Add(handler.Code, handler);
                     registered = true;
@@ -49,6 +49,13 @@ namespace MMO.Photon.Client
                 else
                 {
                     Log.ErrorFormat("RequestHandler list already contains handler for {0} - cannot add {1}", handler.Code, handler.GetType().Name);
+                    /*if (handler.SubCode.HasValue)
+                        Log.ErrorFormat("The handler subcode: {0}", handler.SubCode.Value.ToString());
+                    else
+                        Log.ErrorFormat("The handler does not contain a subcode!");
+                    Log.Error("List (size="+_requestHandlerList.Count.ToString()+") of registered handlers:");
+                    foreach (var h in this._requestHandlerList)
+                        Log.Error(h.Value.GetType().Name);*/
                 }
             }
 
@@ -63,21 +70,27 @@ namespace MMO.Photon.Client
         /// <returns>If the message is handled, returns <b>true</b>.</returns>
         public bool HandleMessage(IMessage message, PhotonClientPeer peer)
         {
+            Log.Debug("Handling message from client");
             bool handled = false;
 
             switch (message.Type)
             {
                 case MessageType.Request:
-                    if (message.SubCode.HasValue && _requestHandlerList.ContainsKey(message.SubCode.Value))
+                    if (message.SubCode.HasValue && _requestHandlerList.ContainsKey(message.SubCode.Value)) //look for specific handler
                     {
+                        Log.DebugFormat("Passing message to {0} for handling...", _requestHandlerList[message.SubCode.Value]);
                         _requestHandlerList[message.SubCode.Value].HandleMessage(message, peer);
                         handled = true;
                     }
-                    else if (!message.SubCode.HasValue && _requestHandlerList.ContainsKey(message.Code))
+                    else if (_requestHandlerList.ContainsKey(message.Code)) //bypass and look for any handler that can handle this message type
                     {
+                        Log.DebugFormat("Passing message to {0} for handling...", _requestHandlerList[message.Code]);
                         _requestHandlerList[message.Code].HandleMessage(message, peer);
                         handled = true;
                     }
+                    break;
+                default:
+                    Log.DebugFormat("Message is of type {0}, expecting Request!", message.Type);
                     break;
             }
             return handled;

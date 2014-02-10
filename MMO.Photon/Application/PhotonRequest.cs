@@ -26,7 +26,7 @@ namespace MMO.Photon.Application
 
         public MessageType Type
         {
-            get { return MessageType.Response; }
+            get { return MessageType.Request; }
         }
 
         public int? SubCode

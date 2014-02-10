@@ -21,13 +21,13 @@ namespace MMO.Photon.Application
     public abstract class PhotonApplication : ApplicationBase
     {
         public abstract byte SubCodeParameterKey { get; }
-        public PhotonConnectionCollection ConnectionCollection { get; private set; }
+        private PhotonConnectionCollection _connectionCollection { get; set; }
         public static readonly Guid ServerId = Guid.NewGuid();
         protected static readonly ILogger Log = ExitGames.Logging.LogManager.GetCurrentClassLogger();
 
         public abstract IPEndPoint MasterEndPoint { get; }
         public abstract int? TcpPoint { get; }
-        public abstract int? UpdPrt { get; }
+        public abstract int? UdpPort { get; }
         public abstract IPAddress PublicIpAddress { get; }
         public abstract int ServerType { get; }
 
@@ -59,7 +59,7 @@ namespace MMO.Photon.Application
             var container = builder.Build();
 
             _factory = container.Resolve<PhotonPeerFactory>();
-            ConnectionCollection = container.Resolve<PhotonConnectionCollection>();
+            _connectionCollection = container.Resolve<PhotonConnectionCollection>();
             _backgroundThreads = container.Resolve<IEnumerable<IBackgroundThread>>();
 
             ResolveParameters(container);
@@ -90,34 +90,26 @@ namespace MMO.Photon.Application
 
         protected override void OnStopRequested()
         {
-            //null ref here???
             foreach (var backgroundThread in _backgroundThreads)
                 backgroundThread.Stop();
 
-            foreach (KeyValuePair<Guid, PhotonServerPeer> photonServerPeer in ConnectionCollection.Servers)
-            {
-                photonServerPeer.Value.Disconnect();
-            }
-
-            foreach (KeyValuePair<Guid, PhotonClientPeer> photonClientPeer in ConnectionCollection.Clients)
-            {
-                photonClientPeer.Value.Disconnect();
-            }
+            if (_connectionCollection != null)
+                _connectionCollection.DisconnectAll();
 
             base.OnStopRequested();
         }
 
         public void ConnectToMaster()
         {
-            //if (!ConnectToServer(MasterEndPoint, "Master", "Master"))
-            if(!ConnectToServerUdp(MasterEndPoint, "Master", "Master",0,1200))
+            if (!ConnectToServer(MasterEndPoint, "Proxy", "Proxy"))
+            //if(!ConnectToServerUdp(MasterEndPoint, "Proxy", "Proxy",0,1200))
             {
                 Log.Warn("Master connection refused!");
                 return;
             }
 
-            //if (Log.IsDebugEnabled)
-                Log.DebugFormat(_isReconnecting == 0 ? "Connecting to master at {0}" : "Reconnected to master at {0}", MasterEndPoint);
+            if (Log.IsDebugEnabled)
+                Log.DebugFormat(_isReconnecting == 0 ? "Connecting to master at {0}" : "Reconnecting to master at {0}", MasterEndPoint);
         }
 
         protected override void OnServerConnectionFailed(int errorCode, string errorMessage, object state)
@@ -143,6 +135,21 @@ namespace MMO.Photon.Application
         protected override ServerPeerBase CreateServerPeer(InitResponse initResponse, object state)
         {
             return _factory.CreatePeer(initResponse);
+        }
+
+        public T BackgroundThread<T>() where T : class
+        {
+            IBackgroundThread result;
+            result = _backgroundThreads.ToList().Find(s => s.GetType() == typeof(T));
+            if (result != null)
+                return result as T;
+            return null;
+        }
+
+        public TConnectionCollection ConnectionCollection<TConnectionCollection>()
+            where TConnectionCollection : PhotonConnectionCollection
+        {
+            return _connectionCollection as TConnectionCollection;
         }
 
         protected abstract void RegisterContainerObjects(ContainerBuilder builder);

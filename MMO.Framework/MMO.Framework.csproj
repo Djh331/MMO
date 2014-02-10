@@ -41,10 +41,12 @@
   <ItemGroup>
     <Compile Include="ClientData.cs" />
     <Compile Include="IBackgroundThread.cs" />
+    <Compile Include="IClient.cs" />
     <Compile Include="IConnectionCollection.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="IHandlerList.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="IPeer.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -60,9 +60,11 @@
   <ItemGroup>
     <Compile Include="Application\PhotonConnectionCollection.cs" />
     <Compile Include="Application\PhotonPeerFactory.cs" />
+    <Compile Include="Application\SubServerConnectionCollection.cs" />
     <Compile Include="Client\PhotonClientHandler.cs" />
     <Compile Include="Client\PhotonClientHandlerList.cs" />
     <Compile Include="Client\PhotonClientPeer.cs" />
+    <Compile Include="Client\SubServerClientPeer.cs" />
     <Compile Include="Server\DefaultEventHandler.cs" />
     <Compile Include="Server\DefaultRequestHandler.cs" />
     <Compile Include="Server\DefaultResponseHandler.cs" />

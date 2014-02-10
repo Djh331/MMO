@@ -24,6 +24,8 @@ namespace MMO.Photon.Application
 
         public void OnConnect(PhotonServerPeer serverPeer)
         {
+            Log.DebugFormat("Server {0} attempting to connect.", serverPeer.ApplicationName);
+
             if (!serverPeer.ServerId.HasValue)
                 throw new InvalidOperationException("Server ID cannot be null!");
 
@@ -40,7 +42,7 @@ namespace MMO.Photon.Application
                 }
 
                 Servers.Add(id, serverPeer);
-                Log.Warn("Sending to connect...");
+                Log.Warn("Sending to connect to new server peer");
                 Connect(peer);
 
                 ResetServers();
@@ -98,5 +100,6 @@ namespace MMO.Photon.Application
 
         public abstract bool IsServerPeer(InitRequest initRequest);
         public abstract PhotonServerPeer OnGetServerByType(int serverType);
+        public abstract void DisconnectAll();
     }
 }

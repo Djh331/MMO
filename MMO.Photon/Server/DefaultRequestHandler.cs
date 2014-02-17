@@ -11,6 +11,7 @@ namespace MMO.Photon.Server
         public DefaultRequestHandler(PhotonApplication application)
             : base(application)
         {
+            Log.DebugFormat("Recieved a request but no appropriate handler to handle it!");
         }
     }
 }

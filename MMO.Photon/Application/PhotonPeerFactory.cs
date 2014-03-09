@@ -15,7 +15,7 @@ namespace MMO.Photon.Application
         private readonly PhotonClientPeer.Factory _clientPeerFactory;
         private readonly PhotonConnectionCollection _subServerCollection;
         private readonly PhotonApplication _application;
-        protected readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        protected readonly ILogger Log;
 
         public PhotonPeerFactory(PhotonServerPeer.Factory serverPeerFactory, PhotonClientPeer.Factory clientPeerFactory, PhotonConnectionCollection subServerCollection, PhotonApplication application)
         {
@@ -23,6 +23,7 @@ namespace MMO.Photon.Application
             _clientPeerFactory = clientPeerFactory;
             _subServerCollection = subServerCollection;
             _application = application;
+            Log = _application.Log;
         }
 
         public PeerBase CreatePeer(InitRequest initRequest)

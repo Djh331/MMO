@@ -19,7 +19,7 @@ namespace MMO.Photon.Client
             }
             set
             {
-                throw new NotImplementedException("Setting a peerID? No-No!");
+                throw new NotImplementedException("Setting a Peer ID? No-No!");
             }
         }
 

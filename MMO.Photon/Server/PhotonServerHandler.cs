@@ -14,11 +14,12 @@ namespace MMO.Photon.Server
         public abstract byte Code { get; }
         public abstract int? SubCode { get; }
         protected PhotonApplication Server;
-        protected ILogger Log = LogManager.GetCurrentClassLogger();
+        protected ILogger Log;
 
         public PhotonServerHandler(PhotonApplication application)
         {
             Server = application;
+            Log = Server.Log;
         }
 
         public bool HandleMessage(IMessage message, PhotonServerPeer serverPeer)

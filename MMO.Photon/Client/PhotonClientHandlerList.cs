@@ -76,17 +76,22 @@ namespace MMO.Photon.Client
             switch (message.Type)
             {
                 case MessageType.Request:
-                    if (message.SubCode.HasValue && _requestHandlerList.ContainsKey(message.SubCode.Value)) //look for specific handler
+                    /*if (message.SubCode.HasValue && _requestHandlerList.ContainsKey(message.SubCode.Value)) //look for specific handler
                     {
                         Log.DebugFormat("Passing message to {0} for handling...", _requestHandlerList[message.SubCode.Value]);
                         _requestHandlerList[message.SubCode.Value].HandleMessage(message, peer);
                         handled = true;
                     }
-                    else if (_requestHandlerList.ContainsKey(message.Code)) //bypass and look for any handler that can handle this message type
+                    else */
+                    if (_requestHandlerList.ContainsKey(message.Code)) //bypass and look for any handler that can handle this message type
                     {
                         Log.DebugFormat("Passing message to {0} for handling...", _requestHandlerList[message.Code]);
                         _requestHandlerList[message.Code].HandleMessage(message, peer);
                         handled = true;
+                    }
+                    else
+                    {
+                        Log.DebugFormat("PhotonClientHandlerList - Message Handler not found!");
                     }
                     break;
                 default:

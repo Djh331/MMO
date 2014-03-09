@@ -1,5 +1,6 @@
 ﻿using ExitGames.Logging;
 using MMO.Framework;
+using MMO.Photon.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,13 @@ namespace MMO.Photon.Server
         private readonly DefaultResponseHandler _defaultResponseHandler;
         private readonly DefaultEventHandler _defaultEventHandler;
 
-        protected readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        protected readonly ILogger Log;
 
         private readonly Dictionary<int, PhotonServerHandler> _requestHandlerList;
         private readonly Dictionary<int, PhotonServerHandler> _responseHandlerList;
         private readonly Dictionary<int, PhotonServerHandler> _eventHandlerList;
 
-        public PhotonServerHandlerList(IEnumerable<PhotonServerHandler> handlers, DefaultRequestHandler defaultRequestHandler, DefaultResponseHandler defaultResponseHandler, DefaultEventHandler defaultEventHandler)
+        public PhotonServerHandlerList(IEnumerable<PhotonServerHandler> handlers, DefaultRequestHandler defaultRequestHandler, DefaultResponseHandler defaultResponseHandler, DefaultEventHandler defaultEventHandler, PhotonApplication application)
         {
             _defaultRequestHander = defaultRequestHandler;
             _defaultResponseHandler = defaultResponseHandler;
@@ -28,6 +29,8 @@ namespace MMO.Photon.Server
             _requestHandlerList = new Dictionary<int, PhotonServerHandler>();
             _responseHandlerList = new Dictionary<int, PhotonServerHandler>();
             _eventHandlerList = new Dictionary<int, PhotonServerHandler>();
+
+            Log = application.Log;
 
             foreach (PhotonServerHandler handler in handlers)
             {

@@ -15,6 +15,7 @@ using System.IO;
 using Autofac;
 using MMO.Photon.Client;
 using Photon.SocketServer.ServerToServer;
+using LogManager = ExitGames.Logging.LogManager;
 
 namespace MMO.Photon.Application
 {
@@ -23,7 +24,7 @@ namespace MMO.Photon.Application
         public abstract byte SubCodeParameterKey { get; }
         private PhotonConnectionCollection _connectionCollection { get; set; }
         public static readonly Guid ServerId = Guid.NewGuid();
-        protected static readonly ILogger Log = ExitGames.Logging.LogManager.GetCurrentClassLogger();
+        public readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
         public abstract IPEndPoint MasterEndPoint { get; }
         public abstract int? TcpPoint { get; }

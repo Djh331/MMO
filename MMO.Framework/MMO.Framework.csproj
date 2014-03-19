@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientData.cs" />
+    <Compile Include="IClientData.cs" />
     <Compile Include="IBackgroundThread.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IConnectionCollection.cs" />

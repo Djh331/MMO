@@ -16,7 +16,7 @@ namespace MMO.Photon.Client
         protected ILogger Log = LogManager.GetCurrentClassLogger();
 
         private readonly Guid _peerID;
-        private readonly Dictionary<Type, ClientData> _clientData = new Dictionary<Type, ClientData>();
+        private readonly Dictionary<Type, IClientData> _clientData = new Dictionary<Type, IClientData>();
         private readonly PhotonApplication _server;
         private readonly PhotonClientHandlerList _handlerList;
         public PhotonServerPeer CurrentServer { get; set; }
@@ -27,7 +27,7 @@ namespace MMO.Photon.Client
 
         #endregion
 
-        public PhotonClientPeer(IRpcProtocol protocol, IPhotonPeer photonPeer, IEnumerable<ClientData> clientData, PhotonClientHandlerList handlerList, PhotonApplication application)
+        public PhotonClientPeer(IRpcProtocol protocol, IPhotonPeer photonPeer, IEnumerable<IClientData> clientData, PhotonClientHandlerList handlerList, PhotonApplication application)
             : base(protocol, photonPeer)
         {
             _peerID = Guid.NewGuid();
@@ -56,9 +56,9 @@ namespace MMO.Photon.Client
             get { return _peerID; }
         }
 
-        public T ClientData<T>() where T : ClientData
+        public T ClientData<T>() where T : class, IClientData
         {
-            ClientData result;
+            IClientData result;
             _clientData.TryGetValue(typeof(T), out result);
             if (result != null)
                 return result as T;

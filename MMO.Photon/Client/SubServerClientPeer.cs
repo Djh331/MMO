@@ -8,7 +8,7 @@ namespace MMO.Photon.Client
     public class SubServerClientPeer : IClient
     {
         private readonly Guid _peerId;
-        private readonly Dictionary<Type, ClientData> _clientData = new Dictionary<Type, ClientData>();
+        private readonly Dictionary<Type, IClientData> _clientData = new Dictionary<Type, IClientData>();
         private readonly PhotonApplication _server;
 
         public Guid PeerId
@@ -25,7 +25,7 @@ namespace MMO.Photon.Client
 
         public delegate SubServerClientPeer Factory();
 
-        public SubServerClientPeer(IEnumerable<ClientData> clientData, PhotonApplication application)
+        public SubServerClientPeer(IEnumerable<IClientData> clientData, PhotonApplication application)
         {
             _server = application;
             foreach(var data in clientData)
@@ -34,9 +34,9 @@ namespace MMO.Photon.Client
             }
         }
 
-        public T ClientData<T>() where T : ClientData
+        public T ClientData<T>() where T : class, IClientData
         {
-            ClientData result;
+            IClientData result;
             _clientData.TryGetValue(typeof(T),out result);
             if (result != null)
                 return result as T;

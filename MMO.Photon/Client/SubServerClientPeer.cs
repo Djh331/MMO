@@ -23,10 +23,11 @@ namespace MMO.Photon.Client
             }
         }
 
-        public delegate SubServerClientPeer Factory();
+        public delegate SubServerClientPeer Factory(Guid peerId);
 
-        public SubServerClientPeer(IEnumerable<IClientData> clientData, PhotonApplication application)
+        public SubServerClientPeer(IEnumerable<IClientData> clientData, PhotonApplication application, Guid peerId)
         {
+            _peerId = peerId;
             _server = application;
             foreach(var data in clientData)
             {

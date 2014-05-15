@@ -37,10 +37,6 @@ namespace MMO.Photon.Application
         {
         }
 
-        public void ClientDisconnec(SubServerClientPeer clientPeer)
-        {
-        }
-
         public override void ResetServers()
         {
         }

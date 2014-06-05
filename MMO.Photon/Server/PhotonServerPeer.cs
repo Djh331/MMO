@@ -1,4 +1,5 @@
-﻿using MMO.Photon.Application;
+﻿using MMO.Framework;
+using MMO.Photon.Application;
 using Photon.SocketServer;
 using Photon.SocketServer.ServerToServer;
 using PhotonHostRuntimeInterfaces;
@@ -19,14 +20,18 @@ namespace MMO.Photon.Server
         public string ApplicationName { get; set; }
         public int ServerType { get; set; }
 
+        private readonly Dictionary<Type, IServerData> _serverData = new Dictionary<Type, IServerData>();
+
         #region Factory Method
 
         public delegate PhotonServerPeer Factory(IRpcProtocol protocol, IPhotonPeer photonPeer);
 
         #endregion
 
-        public PhotonServerPeer(IRpcProtocol protocol, IPhotonPeer photonPeer, PhotonServerHandlerList handlerList, PhotonApplication application) : base(protocol, photonPeer)
+        public PhotonServerPeer(IRpcProtocol protocol, IPhotonPeer photonPeer, IEnumerable<IServerData> serverData, PhotonServerHandlerList handlerList, PhotonApplication application) : base(protocol, photonPeer)
         {
+            foreach (var data in serverData)
+                _serverData.Add(data.GetType(), data);
             _handlerList = handlerList;
             Server = application;
         }
@@ -52,6 +57,15 @@ namespace MMO.Photon.Server
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
             Server.ConnectionCollection<PhotonConnectionCollection>().OnDisconnect(this);
+        }
+
+        public T ServerData<T>() where T : class, IServerData
+        {
+            IServerData result;
+            _serverData.TryGetValue(typeof(T), out result);
+            if (result != null)
+                return result as T;
+            return null;
         }
     }
 }

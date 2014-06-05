@@ -46,7 +46,7 @@ namespace MMO.Photon.Application
             return false;
         }
 
-        public override PhotonServerPeer OnGetServerByType(int serverType)
+        public override PhotonServerPeer OnGetServerByType(int serverType, params object[] additional)
         {
             throw new NotImplementedException();
         }

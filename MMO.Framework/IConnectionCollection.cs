@@ -11,6 +11,6 @@ namespace MMO.Framework
         void OnDisconnect(Server serverPeer);
         void OnClientConnect(Client clientPeer);
         void OnClientDisconnect(Client clientPeer);
-        Server GetServerByType(int serverType);
+        Server GetServerByType(int serverType, params object[] additional);
     }
 }

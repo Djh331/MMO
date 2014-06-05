@@ -86,9 +86,9 @@ namespace MMO.Photon.Application
             Clients.Remove(clientPeer.PeerID);
         }
 
-        public PhotonServerPeer GetServerByType(int serverType)
+        public PhotonServerPeer GetServerByType(int serverType, params object[] additional)
         {
-            return OnGetServerByType(serverType);
+            return OnGetServerByType(serverType, additional);
         }
 
         public abstract void Disconnect(PhotonServerPeer serverPeer);
@@ -99,7 +99,7 @@ namespace MMO.Photon.Application
         public abstract void ResetServers();
 
         public abstract bool IsServerPeer(InitRequest initRequest);
-        public abstract PhotonServerPeer OnGetServerByType(int serverType);
+        public abstract PhotonServerPeer OnGetServerByType(int serverType, params object[] additional);
         public abstract void DisconnectAll();
     }
 }

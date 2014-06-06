@@ -64,7 +64,7 @@ namespace MMO.Photon.Server
                 }
                 else
                 {
-                    Log.ErrorFormat("RequestHandler list already contains handler for {0} - cannot add {1}", handler.Code, handler.GetType().Name);
+                    Log.ErrorFormat("RequestHandler list already contains handler for {0} (Registered already is {2}) - cannot add {1}", handler.Code, handler.GetType().Name, _requestHandlerList[handler.Code].GetType().Name);
                 }
             }
 
@@ -82,7 +82,7 @@ namespace MMO.Photon.Server
                 }
                 else
                 {
-                    Log.ErrorFormat("ResponseHander list already contains handler for {0} - cannot add {1}", handler.Code, handler.GetType().Name);
+                    Log.ErrorFormat("ResponseHander list already contains handler for {0} (Registered already is {2}) - cannot add {1}", handler.Code, handler.GetType().Name, _responseHandlerList[handler.Code].GetType().Name);
                 }
             }
 
@@ -100,7 +100,7 @@ namespace MMO.Photon.Server
                 }
                 else
                 {
-                    Log.ErrorFormat("EventHandler list already contains handler for {0} - cannot add {1}", handler.Code, handler.GetType().Name);
+                    Log.ErrorFormat("EventHandler list already contains handler for ServerEventCode {0} (Registered already is {2}) - cannot add {1}", handler.Code, handler.GetType().Name, _eventHandlerList[handler.Code].GetType().Name);
                 }
             }
 

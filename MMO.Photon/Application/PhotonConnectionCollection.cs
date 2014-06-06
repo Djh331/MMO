@@ -43,7 +43,7 @@ namespace MMO.Photon.Application
 
                 Servers.Add(id, serverPeer);
                 Log.Warn("Sending to connect to new server peer");
-                Connect(peer);
+                Connect(serverPeer);
 
                 ResetServers();
             }
@@ -53,6 +53,7 @@ namespace MMO.Photon.Application
         {
             if (!serverPeer.ServerId.HasValue)
             {
+                //try to invoke a reset here for failures?
                 Disconnect(serverPeer);
                 throw new InvalidOperationException("Server ID cannot be null!");
             }

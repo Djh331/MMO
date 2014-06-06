@@ -19,7 +19,7 @@ namespace MMO.Photon.Client
         private readonly Dictionary<Type, IClientData> _clientData = new Dictionary<Type, IClientData>();
         private readonly PhotonApplication _server;
         private readonly PhotonClientHandlerList _handlerList;
-        public PhotonServerPeer CurrentServer { get; set; }
+        //public PhotonServerPeer CurrentServer { get; set; } //switched to world server handling all the routing
 
         #region Factory Method
 

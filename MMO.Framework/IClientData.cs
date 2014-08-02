@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MMO.Framework
 {
+    /// <summary>
+    /// Empty interface for holding generic ClientData
+    /// </summary>
     public interface IClientData
     {
     }
